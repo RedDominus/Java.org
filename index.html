@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java.org - Website Maker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+        main {
+            padding: 20px;
+        }
+        .file-container {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 1rem;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        select {
+            width: 200px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        #fileList {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to Java.org Website Maker</h1>
+        <p>Create, edit, run, and publish your projects!</p>
+    </header>
+
+    <main>
+        <div class="file-container">
+            <h3>Create New File</h3>
+            <select id="fileType">
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="js">JavaScript</option>
+                <option value="py">Python</option>
+                <option value="lua">Lua</option>
+                <option value="json">JSON</option>
+            </select>
+            <button onclick="createFile()">Create File</button>
+        </div>
+
+        <h2>Your Files:</h2>
+        <div id="fileList"></div>
+
+        <br><br>
+        <button id="publishBtn" onclick="publishSite()">Publish</button>
+        <a href="websites.html"><button>Visit Published Websites</button></a>
+    </main>
+
+    <script>
+        let files = [];
+
+        // Function to create a file and add it to the list
+        function createFile() {
+            const fileType = document.getElementById("fileType").value;
+            const fileName = prompt(`Enter the name for your ${fileType.toUpperCase()} file:`);
+            if (fileName) {
+                files.push({ name: fileName, type: fileType, content: "" });
+                renderFiles();
+            }
+        }
+
+        // Function to render the list of files
+        function renderFiles() {
+            const fileList = document.getElementById("fileList");
+            fileList.innerHTML = "";
+
+            files.forEach((file, index) => {
+                const fileDiv = document.createElement("div");
+                fileDiv.innerHTML = `
+                    <strong>${file.name}.${file.type}</strong> 
+                    <button onclick="editFile(${index})">Edit</button> 
+                    <button onclick="runFile(${index})">Run</button>
+                    <br><br>
+                `;
+                fileList.appendChild(fileDiv);
+            });
+        }
+
+        // Function to edit file content in a basic editor
+        function editFile(index) {
+            const newContent = prompt("Edit the file content:", files[index].content);
+            if (newContent !== null) {
+                files[index].content = newContent;
+                alert("File updated!");
+            }
+        }
+
+        // Function to run the file (only works for HTML for now)
+        function runFile(index) {
+            if (files[index].type === "html") {
+                const newWindow = window.open("", "_blank");
+                newWindow.document.write(files[index].content);
+            } else {
+                alert("Currently, only HTML files can be run directly!");
+            }
+        }
+
+        // Function to publish the first HTML file (as an example)
+        function publishSite() {
+            const htmlFile = files.find(file => file.type === "html");
+            if (htmlFile) {
+                const storedContent = JSON.stringify(htmlFile.content);
+                localStorage.setItem("publishedSiteContent", storedContent);
+                alert("Your HTML file has been published! You can now visit it.");
+            } else {
+                alert("Please create an HTML file to publish.");
+            }
+        }
+    </script>
+
+</body>
+  </html>
