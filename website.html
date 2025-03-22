@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Published Websites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .website-list {
+            margin-top: 20px;
+        }
+        .website-item {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            display: inline-block;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Published Websites</h1>
+    <p>Here are the websites that Have been published in java.org:</p>
+
+    <div class="website-list">
+        <div class="website-item">
+            <h2>Example Website</h2>
+            <a href="example.html">
+                <button>Visit Example Website</button>
+            </a>
+        </div>
+    </div>
+
+    <br><br>
+
+    <button onclick="goBackToEditor()">Back to Editor</button>
+
+    <script>
+        function goBackToEditor() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
